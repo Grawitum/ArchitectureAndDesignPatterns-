@@ -17,15 +17,26 @@ namespace Asteroids.Decorator
         [SerializeField] private Transform _barrelPositionMuffler;
         [SerializeField] private GameObject _muffler;
 
+        [Header("Aim Gun")]
+        [SerializeField] private Transform _barrelPositionAim;
+        [SerializeField] private GameObject _aim;
+
         private void Start()
         {
             IAmmunition ammunition = new Bullet(_bullet, 3.0f);
             var weapon = new Weapon(ammunition, _barrelPosition, 999.0f, _audioSource, _audioClip);
 
             var muffler = new Muffler(_audioClipMuffler, _volumeFireOnMuffler, _barrelPosition, _muffler);
+
+            var aim = new Aim(_barrelPositionAim, _aim);
             
             ModificationWeapon modificationWeapon = new ModificationMuffler(_audioSource, muffler, _barrelPositionMuffler.position);
             modificationWeapon.ApplyModification(weapon);
+            //modificationWeapon.DeleteMidification(weapon);
+
+            modificationWeapon = new ModificationAim(aim, _barrelPositionAim.position);
+            modificationWeapon.ApplyModification(weapon);
+            //modificationWeapon.DeleteMidification(weapon);
 
             _fire = modificationWeapon;
         }

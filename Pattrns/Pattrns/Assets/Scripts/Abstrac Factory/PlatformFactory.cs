@@ -12,7 +12,8 @@ namespace Asteroids.Abstrac_Factory
             _inputFactory = new InputFactory();
             _windowFactory = new WindowFactory();
         }
-        
+
+        [System.Obsolete]
         public Platform Create(RuntimePlatform platform)
         {
             return new Platform(_inputFactory.CreateInput(platform), _windowFactory.CreateWindow(platform));

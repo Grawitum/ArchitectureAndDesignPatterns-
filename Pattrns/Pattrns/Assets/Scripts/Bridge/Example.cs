@@ -6,7 +6,9 @@ namespace Asteroids.Bridge
     {
         private void Start()
         {
-            var enemy = new Enemy(new MagicalAttack(), new Infantry());
+            var mag = new Enemy(new MagicalAttack(), new Infantry());
+            var swordsman = new Enemy(new SwordAttack(), new Running());
+            var pilot = new Enemy(new ShootAttack(), new Flight());
         }
     }
 }

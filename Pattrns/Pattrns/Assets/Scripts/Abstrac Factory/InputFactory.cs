@@ -5,6 +5,7 @@ namespace Asteroids.Abstrac_Factory
 {
     internal sealed class InputFactory
     {
+        [Obsolete]
         public IInput CreateInput(RuntimePlatform platform)
         {
             switch (platform)

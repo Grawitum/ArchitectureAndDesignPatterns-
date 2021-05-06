@@ -24,5 +24,14 @@ namespace Asteroids.Decorator
             weapon.SetBarrelPosition(_muffler.BarrelPositionMuffler);
             return weapon;
         }
+
+        protected override Weapon RemoveModification(Weapon weapon)
+        {
+            _mufflerObject.SetActive(false);
+            weapon.SetAudioSourceVolumeDefolt();
+            weapon.SetAudioClipDefolt();
+            weapon.SetBarrelPositionDefolt();
+            return weapon;
+        }
     }
 }

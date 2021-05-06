@@ -5,6 +5,7 @@ namespace Asteroids.Abstrac_Factory
 {
     internal sealed class WindowFactory
     {
+        [Obsolete]
         public IWindow CreateWindow(RuntimePlatform platform)
         {
             switch (platform)
