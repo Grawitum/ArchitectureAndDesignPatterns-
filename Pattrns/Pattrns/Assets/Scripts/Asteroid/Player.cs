@@ -4,9 +4,13 @@ namespace Asteroids
     public class Player
     {
         public float speed { get; private set; }
+        public float shiftSpeed { get; private set; }
         public float acceleration { get; private set; }
         private float hp { get; set ; }
         private GameController _gameController;
+
+        public StandingState standing;
+        public ShiftState shift;
 
         public Player(float speed, float acceleration, float hp, GameController gameController)
         {
