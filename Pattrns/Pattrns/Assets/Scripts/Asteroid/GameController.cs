@@ -9,6 +9,10 @@ namespace Asteroids
         [SerializeField] private float _hp;
         private Player _player;
 
+        public StateMachine movementSM;
+        public StandingState standing;
+        public ShiftState shift;
+
         private GameObject _barrel;
         private Fire _fire;
         [SerializeField] private float _force;
@@ -23,6 +27,8 @@ namespace Asteroids
 
         private Camera _camera;
         private Ship _ship;
+
+        private float _fixedDeltaTime;
 
         private void Start()
         {
@@ -40,6 +46,16 @@ namespace Asteroids
             _shipController = new ShipController(_ship,_camera, this.gameObject);
 
             _executes = new IExecute[] { _inputController,_shipController };
+
+            movementSM = new StateMachine();
+
+            standing = new StandingState(_player, movementSM,moveTransform);
+            shift = new ShiftState(_player, movementSM,moveTransform);
+
+            movementSM.Initialize(standing);
+
+            _player.standing = standing;
+            _player.shift = shift;
         }
 
         private void Update()
@@ -49,6 +65,16 @@ namespace Asteroids
             {
                 _executes[i].Execute(_deltaTime);
             }
+
+            movementSM.CurrentState.HandleInput();
+
+            movementSM.CurrentState.LogicUpdate();
+        }
+
+        private void FixedUpdate()
+        {
+            _fixedDeltaTime = Time.fixedDeltaTime;
+            movementSM.CurrentState.PhysicsUpdate(_fixedDeltaTime);
         }
 
         private void OnCollisionEnter2D(Collision2D other)
